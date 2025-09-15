@@ -4,6 +4,7 @@ A Flutter project Using MVVM(Model View ViewModel) Architecture with Provider St
 
 ## Directory Structure
 
+```
 lib/
 │
 ├── data/ # Data Layer
@@ -50,3 +51,5 @@ lib/
 │ └── user_viewmodel.dart # User state handling (fetch/store user data)
 │
 └── main.dart # App entry point (MaterialApp, routes, providers)
+
+```
