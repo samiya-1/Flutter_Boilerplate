@@ -52,4 +52,9 @@ lib/
 │
 └── main.dart # App entry point (MaterialApp, routes, providers)
 
-```
+
+
+
+### Screenshots 
+
+<img src="screenshots/login_screen.png" alt="Landing page Screenshot in Black mode" width="200">
