@@ -102,16 +102,16 @@ class _LoginViewState extends State<LoginView> {
                     context,
                   );
                 } else {
-                  // Map data={
-                  //   'email':emailController.text.toString(),
-                  //   'password':passwordController.text.toString(),
+                  Map data={
+                    'email':emailController.text.toString(),
+                    'password':passwordController.text.toString(),
 
-                  // };
-
-                  Map data = {
-                    'email': 'eve.holt@reqres.in',
-                    'password': 'cityslicka',
                   };
+
+                  // Map data = {
+                  //   'email': 'eve.holt@reqres.in',
+                  //   'password': 'cityslicka',
+                  // };
                   authviewmodel.loginApi(data, context);
                   print("Api hit");
                 }
