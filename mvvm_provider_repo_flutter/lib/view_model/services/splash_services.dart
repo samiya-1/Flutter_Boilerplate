@@ -5,30 +5,26 @@ import 'package:mvvm_provider_repo_flutter/utils/routes/routes_name.dart';
 import 'package:mvvm_provider_repo_flutter/view_model/user_view_model.dart';
 
 class SplashServices {
- 
-  Future<UserModel> getUserData()=>UserViewModel().getUser();
+  Future<UserModel> getUserData() => UserViewModel().getUser();
 
-  void checkAuthentication(BuildContext context)async{
+  void checkAuthentication(BuildContext context) async {
+    getUserData()
+        .then((value) async {
+          print(value.token.toString());
+          if (value.token.toString() == 'null' ||
+              value.token.toString() == '') {
+            await Future.delayed(Duration(seconds: 3));
 
-
-
-
-  getUserData().then((value)async
-  {
-    if(value.token=="null" || value.token ==''){
-    await  Future.delayed(Duration(seconds: 3));
-
-Navigator.pushNamed(context, RoutesName.login);
-    }else{
-     await Future.delayed(Duration(seconds: 3));
-Navigator.pushNamed(context, RoutesName.home);
-
-    }
-
-  }).onError((error,StackTrace){
-    if(kDebugMode){
-      print(error.toString());
-    }
-  });
-}
+            Navigator.pushNamed(context, RoutesName.login);
+          } else {
+            await Future.delayed(Duration(seconds: 3));
+            Navigator.pushNamed(context, RoutesName.home);
+          }
+        })
+        .onError((error, StackTrace) {
+          if (kDebugMode) {
+            print(error.toString());
+          }
+        });
+  }
 }

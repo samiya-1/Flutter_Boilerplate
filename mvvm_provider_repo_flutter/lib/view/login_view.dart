@@ -13,7 +13,6 @@ class LoginView extends StatefulWidget {
 }
 
 class _LoginViewState extends State<LoginView> {
-  
   TextEditingController emailController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
 
@@ -24,22 +23,18 @@ class _LoginViewState extends State<LoginView> {
     true,
   ); //on/off visibility of password
 
-@override
+  @override
   void dispose() {
-   emailController.dispose();
-   passwordController.dispose();
-   emailFocus.dispose();
-   passwordFocus.dispose();
-   obscurePassword.dispose();
-
+    emailController.dispose();
+    passwordController.dispose();
+    emailFocus.dispose();
+    passwordFocus.dispose();
+    obscurePassword.dispose();
   }
-
 
   @override
   Widget build(BuildContext context) {
-
-final authviewmodel=Provider.of<AuthViewmodel>(context);
-
+    final authviewmodel = Provider.of<AuthViewmodel>(context);
 
     final height = MediaQuery.of(context).size.height * 1;
 
@@ -107,31 +102,29 @@ final authviewmodel=Provider.of<AuthViewmodel>(context);
                     context,
                   );
                 } else {
-
                   // Map data={
                   //   'email':emailController.text.toString(),
                   //   'password':passwordController.text.toString(),
 
                   // };
 
-
-                  Map data={
-                    'email':'eve.holt@reqres.in',
-                    'password':'cityslicka',
-
+                  Map data = {
+                    'email': 'eve.holt@reqres.in',
+                    'password': 'cityslicka',
                   };
-                  authviewmodel.loginApi(data,context);
+                  authviewmodel.loginApi(data, context);
                   print("Api hit");
                 }
               },
             ),
-                        SizedBox(height: height * .02),
-                        InkWell(
-                          onTap: () {
-Navigator.pushNamed(context, RoutesName.signup) ;                         },
-                          
-                          child: Text("Don't have an Account? Sign Up"))
+            SizedBox(height: height * .02),
+            InkWell(
+              onTap: () {
+                Navigator.pushNamed(context, RoutesName.signup);
+              },
 
+              child: Text("Don't have an Account? Sign Up"),
+            ),
           ],
         ),
       ),

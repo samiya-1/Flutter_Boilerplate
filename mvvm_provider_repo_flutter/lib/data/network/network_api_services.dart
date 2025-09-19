@@ -7,13 +7,12 @@ import 'package:mvvm_provider_repo_flutter/data/network/base_api_services.dart';
 import 'package:http/http.dart' as http;
 
 class NetworkApiServices extends BaseApiServices {
-
   static const String apiKey = 'reqres-free-v1'; // put your actual key here
 
-Map<String, String> get _headers => {
-        'x-api-key': apiKey,
-        'Content-Type': 'application/json',
-      };
+  Map<String, String> get _headers => {
+    'x-api-key': apiKey,
+    'Content-Type': 'application/json',
+  };
 
   @override
   Future getGetApiResponse(String url) async {
@@ -21,10 +20,9 @@ Map<String, String> get _headers => {
 
     try {
       final response = await http
-          .get(Uri.parse(url),    headers: _headers,
-)
+          .get(Uri.parse(url), headers: _headers)
           .timeout(Duration(seconds: 10));
-          //responseJson = returnResponse(response); 
+      responseJson = returnResponse(response);
     } on SocketException {
       throw FetchDataException('No Intenet Connection');
     }
@@ -36,10 +34,11 @@ Map<String, String> get _headers => {
     dynamic responseJson;
 
     try {
-    Response response = await post(Uri.parse(url),
-    headers: _headers,
-     body: jsonEncode(data))
-          .timeout(Duration(seconds: 10));
+      Response response = await post(
+        Uri.parse(url),
+        headers: _headers,
+        body: jsonEncode(data),
+      ).timeout(Duration(seconds: 10));
       responseJson = returnResponse(response);
     } on SocketException {
       throw FetchDataException('No Intenet Connection');
@@ -53,7 +52,7 @@ Map<String, String> get _headers => {
       case 200:
         dynamic responseJson = jsonDecode(response.body);
         return responseJson;
-        case 500:
+      case 500:
       case 400:
         throw BadRequestException(response.body.toString());
       case 404:
@@ -61,7 +60,8 @@ Map<String, String> get _headers => {
 
       default:
         throw FetchDataException(
-          'Error occured while communicating with serverwith status code${response.statusCode}');
+          'Error occured while communicating with serverwith status code${response.statusCode}',
+        );
     }
   }
 }
