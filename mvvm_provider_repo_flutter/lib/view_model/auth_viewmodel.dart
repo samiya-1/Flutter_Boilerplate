@@ -11,14 +11,13 @@ class AuthViewmodel with ChangeNotifier {
   bool _loading = false;
   bool get loading => _loading;
 
-bool _signupLoading = false;
+  bool _signupLoading = false;
   bool get signuploading => _signupLoading;
 
   setLoading(bool value) {
     _loading = value;
     notifyListeners();
   }
-
 
   setsignupLoading(bool value) {
     _signupLoading = value;
@@ -34,11 +33,14 @@ bool _signupLoading = false;
         .then((value) {
           setLoading(false);
 
-          final userPreference=Provider.of<UserViewModel>(context,listen: false);
-          userPreference.saveUser(UserModel(token: value['token'].toString(),),);
+          final userPreference = Provider.of<UserViewModel>(
+            context,
+            listen: false,
+          );
+          userPreference.saveUser(UserModel(token: value['token'].toString()));
 
-          Utils.flushBarErrorMessage('login succesful', context);
-          Navigator.pushNamed(context, RoutesName.home);
+          Utils.flushBarErrorMessage('login succesfull', context);
+Navigator.pushNamedAndRemoveUntil(context, RoutesName.home, (route)=>false);
 
           if (kDebugMode) {
             print(value.toString());
@@ -46,20 +48,13 @@ bool _signupLoading = false;
         })
         .onError((error, stackTrace) {
           setLoading(false);
-            Utils.flushBarErrorMessage(error.toString(), context);
+          Utils.flushBarErrorMessage(error.toString(), context);
 
           if (kDebugMode) {
             print(error.toString());
           }
         });
   }
-
-
-
-
-
-
-
 
   Future<void> signupApi(dynamic data, BuildContext context) async {
     setsignupLoading(true);
@@ -69,7 +64,7 @@ bool _signupLoading = false;
           setsignupLoading(false);
 
           Utils.flushBarErrorMessage('signup succesful', context);
-          Navigator.pushNamed(context, RoutesName.home);
+Navigator.pushNamedAndRemoveUntil(context, RoutesName.home, (route)=>false);
 
           if (kDebugMode) {
             print(value.toString());
@@ -77,7 +72,7 @@ bool _signupLoading = false;
         })
         .onError((error, stackTrace) {
           setsignupLoading(false);
-            Utils.flushBarErrorMessage(error.toString(), context);
+          Utils.flushBarErrorMessage(error.toString(), context);
 
           if (kDebugMode) {
             print(error.toString());

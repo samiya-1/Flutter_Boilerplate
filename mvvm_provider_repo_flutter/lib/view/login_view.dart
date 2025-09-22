@@ -3,6 +3,7 @@ import 'package:mvvm_provider_repo_flutter/res/components/round_button.dart';
 import 'package:mvvm_provider_repo_flutter/utils/routes/routes_name.dart';
 import 'package:mvvm_provider_repo_flutter/utils/utils.dart';
 import 'package:mvvm_provider_repo_flutter/view_model/auth_viewmodel.dart';
+import 'package:mvvm_provider_repo_flutter/view_model/services/splash_services.dart';
 import 'package:provider/provider.dart';
 
 class LoginView extends StatefulWidget {
@@ -19,7 +20,7 @@ class _LoginViewState extends State<LoginView> {
   FocusNode emailFocus = FocusNode();
   FocusNode passwordFocus = FocusNode();
 
-  ValueNotifier obscurePassword = ValueNotifier(
+  ValueNotifier<bool> obscurePassword = ValueNotifier<bool>(
     true,
   ); //on/off visibility of password
 
@@ -30,7 +31,14 @@ class _LoginViewState extends State<LoginView> {
     emailFocus.dispose();
     passwordFocus.dispose();
     obscurePassword.dispose();
+
+
+    super.dispose();
   }
+
+
+
+
 
   @override
   Widget build(BuildContext context) {
@@ -102,10 +110,9 @@ class _LoginViewState extends State<LoginView> {
                     context,
                   );
                 } else {
-                  Map data={
-                    'email':emailController.text.toString(),
-                    'password':passwordController.text.toString(),
-
+                  Map data = {
+                    'email': emailController.text.toString(),
+                    'password': passwordController.text.toString(),
                   };
 
                   // Map data = {
@@ -120,7 +127,11 @@ class _LoginViewState extends State<LoginView> {
             SizedBox(height: height * .02),
             InkWell(
               onTap: () {
-                Navigator.pushNamed(context, RoutesName.signup);
+                Navigator.pushNamedAndRemoveUntil(
+                  context,
+                  RoutesName.signup,
+                  (route) => false,
+                );
               },
 
               child: Text("Don't have an Account? Sign Up"),

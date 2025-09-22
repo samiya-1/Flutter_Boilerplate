@@ -30,6 +30,9 @@ class _SignupViewState extends State<SignupView> {
     emailFocus.dispose();
     passwordFocus.dispose();
     obscurePassword.dispose();
+
+        super.dispose();
+
   }
 
   @override
@@ -107,14 +110,18 @@ class _SignupViewState extends State<SignupView> {
                     'password': passwordController.text.toString(),
                   };
                   authviewmodel.signupApi(data, context);
-                  print("Api hit");
+                 // print("Api hit");
                 }
               },
             ),
             SizedBox(height: height * .02),
             InkWell(
               onTap: () {
-                Navigator.pushNamed(context, RoutesName.login);
+                Navigator.pushNamedAndRemoveUntil(
+                  context,
+                  RoutesName.login,
+                  (route) => false,
+                );
               },
 
               child: Text("Already have an Account? Login"),

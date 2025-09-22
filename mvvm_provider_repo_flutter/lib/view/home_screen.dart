@@ -18,7 +18,6 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   void initState() {
-    // TODO: implement initState
     homeViewModel.fetchMoviesListApi();
     super.initState();
   }
@@ -33,7 +32,11 @@ class _HomeScreenState extends State<HomeScreen> {
           InkWell(
             onTap: () {
               userPreference.remove().then((value) {
-                Navigator.pushNamed(context, RoutesName.login);
+                Navigator.pushNamedAndRemoveUntil(
+                  context,
+                  RoutesName.login,
+                  (route) => false,
+                );
               });
             },
             child: Center(child: Text("Logout")),
@@ -57,9 +60,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   itemBuilder: (context, index) {
                     return Card(
                       child: InkWell(
-                        onTap: () {
-                          
-                        },
+                        onTap: () {},
                         child: ListTile(
                           leading: Image.network(
                             height: 40,
@@ -67,7 +68,7 @@ class _HomeScreenState extends State<HomeScreen> {
                             fit: BoxFit.cover,
                             value.moviesList.data!.movies![index].posterurl
                                 .toString(),
-                        
+
                             errorBuilder: (context, error, stackTrace) {
                               return Icon(Icons.error);
                             },
@@ -77,12 +78,21 @@ class _HomeScreenState extends State<HomeScreen> {
                                 .toString(),
                           ),
                           subtitle: Text(
-                            value.moviesList.data!.movies![index].year.toString(),
+                            value.moviesList.data!.movies![index].year
+                                .toString(),
                           ),
                           trailing: Row(
                             mainAxisSize: MainAxisSize.min,
                             children: [
-                              Text(Utils.avaregerating(value.moviesList.data!.movies![index].ratings!).toStringAsFixed(1)),
+                              Text(
+                                Utils.avaregerating(
+                                  value
+                                      .moviesList
+                                      .data!
+                                      .movies![index]
+                                      .ratings!,
+                                ).toStringAsFixed(1),
+                              ),
                               Icon(Icons.star, color: Colors.amber),
                             ],
                           ),

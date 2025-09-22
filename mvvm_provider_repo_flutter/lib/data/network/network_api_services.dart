@@ -7,8 +7,7 @@ import 'package:mvvm_provider_repo_flutter/data/network/base_api_services.dart';
 import 'package:http/http.dart' as http;
 
 class NetworkApiServices extends BaseApiServices {
-  static const String apiKey = 'reqres-free-v1'; // put your actual key here
-
+  static const String apiKey = 'reqres-free-v1';
   Map<String, String> get _headers => {
     'x-api-key': apiKey,
     'Content-Type': 'application/json',
